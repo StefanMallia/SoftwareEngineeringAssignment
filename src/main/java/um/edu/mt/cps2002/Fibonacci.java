@@ -9,6 +9,7 @@ public class Fibonacci
         else if(index == 1 || index == 2)
             return 1;
         else
+			//return 1; //intentionally breaking it
             return fibonacciSequence(index-1)+fibonacciSequence(index-2);
     }
     public static int sumFibonacci(int index)
@@ -21,5 +22,7 @@ public class Fibonacci
     public static void main(String[] args)
     {
         System.out.println("Hello, World!");
-    }
+    
+	}
+
 }
