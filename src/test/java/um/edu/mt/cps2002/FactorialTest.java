@@ -10,7 +10,7 @@ import org.junit.Test;
 public class FactorialTest
 {
     @Test
-    public void test_factorialiSequence()
+    public void test_factorial()
     {
         Assert.assertEquals(3628800, Factorial.factorial(10));
         Assert.assertEquals(1, Factorial.factorial(0));
