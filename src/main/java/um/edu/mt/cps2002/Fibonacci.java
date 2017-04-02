@@ -11,6 +11,13 @@ public class Fibonacci
         else
             return fibonacciSequence(index-1)+fibonacciSequence(index-2);
     }
+    public static int sumFibonacci(int index)
+    {
+        int sumResult = 0;
+        for(int i = 0; i <= index; i++)
+            sumResult = sumResult + fibonacciSequence(i);
+        return sumResult;
+    }
     public static void main(String[] args)
     {
         System.out.println("Hello, World!");
