@@ -12,8 +12,8 @@ public class FactorialTest
     @Test
     public void test_factorialiSequence()
     {
-        Assert.assertEquals(3628800, Fibonacci.fibonacciSequence(10));
-        Assert.assertEquals(1, Fibonacci.fibonacciSequence(0));
-        Assert.assertEquals(39916800, Fibonacci.fibonacciSequence(11));
+        Assert.assertEquals(3628800, Factorial.factorial(10));
+        Assert.assertEquals(1, Factorial.factorial(0));
+        Assert.assertEquals(39916800, Factorial.factorial(11));
     }
 }
