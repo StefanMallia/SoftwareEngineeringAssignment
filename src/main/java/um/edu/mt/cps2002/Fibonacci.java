@@ -9,7 +9,8 @@ public class Fibonacci
         else if(index == 1 || index == 2)
             return 1;
         else
-            return fibonacciSequence(index-1)+fibonacciSequence(index-2);
+			return 1; //intentionally breaking it
+            //return fibonacciSequence(index-1)+fibonacciSequence(index-2);
     }
     public static int sumFibonacci(int index)
     {
