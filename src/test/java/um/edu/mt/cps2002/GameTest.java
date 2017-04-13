@@ -1,9 +1,11 @@
 package um.edu.mt.cps2002;
 
-import java.io.*;
+import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
@@ -31,9 +33,10 @@ public class GameTest
 
 
     @Test
-    public void generateHTMLFiles()
+    public void testGenerateHTMLFiles()
     {
         gameTest.setNumPlayers(2);
+        gameTest.players = new Player[2];
         gameTest.players[0] = new Player();
         gameTest.players[0].setPosition(new Position(0,0));
         gameTest.players[1] = new Player();
@@ -41,6 +44,7 @@ public class GameTest
 
         gameTest.map = new Map();
         gameTest.map.setMapSize(6, 2);
+
 
         gameTest.players[0].mapKnowledge = new Colour[][]{
                 {Colour.GREEN, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
@@ -58,22 +62,12 @@ public class GameTest
                 {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
                 {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREEN},
         };
-        gameTest.generateHTMLFiles();
+        gameTest.generateHTMLFiles("./src/test/resources/um/edu/mt/cps2002/");
 
-        String player1Map;
-        BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader("player1Map.html"));
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                sb.append("\n");
-                line = br.readLine();
-            }
-            player1Map = sb.toString();
-
+            //https://stackoverflow.com/questions/3891375/how-to-read-a-text-file-resource-into-java-unit-test
+            String player1Map = IOUtils.toString(this.getClass().getResourceAsStream("player1Map.html"), "UTF-8");
+            player1Map = player1Map.substring(0, player1Map.length()-1); //for some reason newline is appended by IOUtils
             Assert.assertTrue(player1Map.equals("<table>\n" +
                     "  <tr>\n" +
                     "    <td width=\"50\" height=\"50\" bgcolor=\"green\" align=\"center\"><font size=\"5\">('_')</font><\n" +
@@ -122,37 +116,11 @@ public class GameTest
                     "    <td width=\"50\" height=\"50\" bgcolor=\"grey\"></td>\n" +
                     "    <td width=\"50\" height=\"50\" bgcolor=\"grey\"></td>\n" +
                     "    <td width=\"50\" height=\"50\" bgcolor=\"grey\"></td>\n" +
-                    "  </tr>\n" +
-                    "  \n" +
+                    "  </tr>  \n" +
                     "</table>"));
 
-
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-            }
-            catch(IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        String player2Map;
-        br = null;
-        try {
-            br = new BufferedReader(new FileReader("player2Map.html"));
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-
-            while (line != null) {
-                sb.append(line);
-                sb.append("\n");
-                line = br.readLine();
-            }
-            player2Map = sb.toString();
-
+            String player2Map = IOUtils.toString(this.getClass().getResourceAsStream("player2Map.html"), "UTF-8");
+            player2Map = player2Map.substring(0, player2Map.length()-1);
             Assert.assertTrue(player2Map.equals("<table>\n" +
                     "  <tr>\n" +
                     "    <td width=\"50\" height=\"50\" bgcolor=\"grey\"></td>\n" +
@@ -201,21 +169,10 @@ public class GameTest
                     "    <td width=\"50\" height=\"50\" bgcolor=\"grey\"></td>\n" +
                     "    <td width=\"50\" height=\"50\" bgcolor=\"grey\"></td>\n" +
                     "    <td width=\"50\" height=\"50\" bgcolor=\"green\" align=\"center\"><font size=\"5\">('_')</font></td>\n" +
-                    "  </tr>\n" +
-                    "  \n" +
+                    "  </tr>  \n" +
                     "</table>"));
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-            }
-            catch(IOException e) {
-                e.printStackTrace();
-            }
-        }
-
+        catch(IOException e) { e.printStackTrace();}
 
 
     }
