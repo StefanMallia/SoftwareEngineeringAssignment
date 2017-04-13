@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: um.edu.mt.cps2002.GameTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 1, Errors: 1, Skipped: 0, Time elapsed: 0.111 sec <<< FAILURE! - in um.edu.mt.cps2002.GameTest
+testSetNumPlayers(um.edu.mt.cps2002.GameTest)  Time elapsed: 0.018 sec  <<< FAILURE!
+java.lang.AssertionError: expected:<false> but was:<true>
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:834)
+	at org.junit.Assert.assertEquals(Assert.java:118)
+	at org.junit.Assert.assertEquals(Assert.java:144)
+	at um.edu.mt.cps2002.GameTest.testSetNumPlayers(GameTest.java:23)
+
+generateHTMLFiles(um.edu.mt.cps2002.GameTest)  Time elapsed: 0.005 sec  <<< ERROR!
+java.lang.NullPointerException: null
+	at um.edu.mt.cps2002.GameTest.generateHTMLFiles(GameTest.java:37)
+
