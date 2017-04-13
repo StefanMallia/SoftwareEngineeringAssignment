@@ -32,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/um/edu/mt/cps2002/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="82" column="40" selection-start-line="82" selection-start-column="40" selection-end-line="82" selection-end-column="40" />
+            <state relative-caret-position="360">
+              <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
               <folding>
                 <element signature="e#161#162#0" expanded="true" />
                 <element signature="e#188#189#0" expanded="true" />
@@ -105,7 +105,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/mt/cps2002/GameTest.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="396">
@@ -162,8 +162,8 @@
         <option value="$PROJECT_DIR$/src/main/java/um/edu/mt/cps2002/Map.java" />
         <option value="$PROJECT_DIR$/src/test/java/um/edu/mt/cps2002/MapTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/um/edu/mt/cps2002/Game.java" />
         <option value="$PROJECT_DIR$/src/test/java/um/edu/mt/cps2002/GameTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/um/edu/mt/cps2002/Game.java" />
       </list>
     </option>
   </component>
@@ -877,12 +877,12 @@
       <updated>1491160215235</updated>
       <workItem from="1491160217111" duration="5684000" />
       <workItem from="1491318746220" duration="8434000" />
-      <workItem from="1492058897951" duration="15570000" />
+      <workItem from="1492058897951" duration="15617000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29688000" />
+    <option name="totallyTimeSpent" value="29735000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="0" width="1922" height="1057" extended-state="6" />
@@ -1178,17 +1178,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/um/edu/mt/cps2002/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="82" column="40" selection-start-line="82" selection-start-column="40" selection-end-line="82" selection-end-column="40" />
-          <folding>
-            <element signature="e#161#162#0" expanded="true" />
-            <element signature="e#188#189#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/um/edu/mt/cps2002/GameTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -1197,6 +1186,17 @@
             <element signature="imports" expanded="true" />
             <element signature="e#289#290#0" expanded="true" />
             <element signature="e#326#327#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/um/edu/mt/cps2002/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+          <folding>
+            <element signature="e#161#162#0" expanded="true" />
+            <element signature="e#188#189#0" expanded="true" />
           </folding>
         </state>
       </provider>
