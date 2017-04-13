@@ -5,15 +5,16 @@ package um.edu.mt.cps2002;
  */
 public class Player {
     Position position;
+    Position initialPosition;
     Colour[][] mapKnowledge;
 
-    public boolean move(Direction direction)
+    public void move(Direction direction)
     {
-        return true;
+
     }
 
-    public boolean setPosition(Position position)
+    public void setPosition(Position position)
     {
-        return true;
+
     }
 }

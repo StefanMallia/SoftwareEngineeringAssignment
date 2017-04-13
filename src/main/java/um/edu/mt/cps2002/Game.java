@@ -18,7 +18,7 @@ public class Game
     }
     public void generateHTMLFiles(String directory)
     {
- 
+
 
     }
     public static void main(String[] args)

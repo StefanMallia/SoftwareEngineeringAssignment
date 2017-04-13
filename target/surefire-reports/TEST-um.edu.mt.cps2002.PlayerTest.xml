@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="2" failures="2" name="um.edu.mt.cps2002.GameTest" time="0.11" errors="0" skipped="0">
+<testsuite tests="2" failures="2" name="um.edu.mt.cps2002.PlayerTest" time="0.001" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2016.2.5"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
@@ -62,13 +62,13 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="um.edu.mt.cps2002.GameTest" name="testSetNumPlayers" time="0.024">
-    <failure message="expected:&lt;false&gt; but was:&lt;true&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;false&gt; but was:&lt;true&gt;
+  <testcase classname="um.edu.mt.cps2002.PlayerTest" name="testMove" time="0">
+    <failure message="expected:&lt;true&gt; but was:&lt;false&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;true&gt; but was:&lt;false&gt;
 	at org.junit.Assert.fail(Assert.java:88)
 	at org.junit.Assert.failNotEquals(Assert.java:834)
 	at org.junit.Assert.assertEquals(Assert.java:118)
 	at org.junit.Assert.assertEquals(Assert.java:144)
-	at um.edu.mt.cps2002.GameTest.testSetNumPlayers(GameTest.java:25)
+	at um.edu.mt.cps2002.PlayerTest.testMove(PlayerTest.java:22)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -101,12 +101,13 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:68)
 </failure>
   </testcase>
-  <testcase classname="um.edu.mt.cps2002.GameTest" name="testGenerateHTMLFiles" time="0">
-    <failure type="java.lang.AssertionError">java.lang.AssertionError
-	at org.junit.Assert.fail(Assert.java:86)
-	at org.junit.Assert.assertTrue(Assert.java:41)
-	at org.junit.Assert.assertTrue(Assert.java:52)
-	at um.edu.mt.cps2002.GameTest.testGenerateHTMLFiles(GameTest.java:71)
+  <testcase classname="um.edu.mt.cps2002.PlayerTest" name="testSetPosition" time="0.001">
+    <failure message="expected:&lt;true&gt; but was:&lt;false&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;true&gt; but was:&lt;false&gt;
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:834)
+	at org.junit.Assert.assertEquals(Assert.java:118)
+	at org.junit.Assert.assertEquals(Assert.java:144)
+	at um.edu.mt.cps2002.PlayerTest.testSetPosition(PlayerTest.java:36)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
