@@ -33,34 +33,34 @@ public class Player {
     }
 
 
-    public void move(Direction direction,Map map) throws IndexOutOfBoundsException
+    public void move(Direction direction, Map map) throws IndexOutOfBoundsException
     {
         switch(direction){
             case UP:
-                position.column--;
-
-                break;
-            case DOWN:
-                position.column++;
-                break;
-            case LEFT:
                 position.row--;
                 break;
-            case RIGHT:
+            case DOWN:
                 position.row++;
                 break;
-
-
+            case LEFT:
+                position.column--;
+                break;
+            case RIGHT:
+                position.column++;
+                break;
         }
         if(position.row>=map.size || position.column>=map.size)
             throw new IndexOutOfBoundsException();
-        else mapKnowledge[position.column][position.row] = map.tileColours[position.column][position.row];
+        else if(position.row < 0 || position.column < 0)
+            throw new IndexOutOfBoundsException();
+        else
+            mapKnowledge[position.row][position.column] = map.tileColours[position.row][position.column];
     }
 
-    public void setPosition(Position position)
+    public void setPosition(Position position, Map map)
     {
         this.position = position;
-       // mapKnowledge[position.column][position.row] = map.tileColours[position.column][position.row];
+       mapKnowledge[position.row][position.column] = map.tileColours[position.column][position.column];
     }
 
 
