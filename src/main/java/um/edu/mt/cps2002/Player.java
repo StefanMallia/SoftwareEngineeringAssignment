@@ -60,7 +60,7 @@ public class Player {
     public void setPosition(Position position, Map map)
     {
         this.position = position;
-       mapKnowledge[position.row][position.column] = map.tileColours[position.column][position.column];
+        mapKnowledge[position.row][position.column] = map.tileColours[position.row][position.column];
     }
 
 
