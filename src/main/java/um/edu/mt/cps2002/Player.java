@@ -23,9 +23,9 @@ public class Player {
             int I = (int) Math.floor(Math.random()*map.length);
             int J = (int) Math.floor(Math.random()*map.length);
 
-            if(map[J][I]==Colour.GREEN){
-                mapKnowledge[J][I] = Colour.GREEN;
-                position = new Position(J,I);
+            if(map[I][J]==Colour.GREEN){
+                mapKnowledge[I][J] = Colour.GREEN;
+                position = new Position(I,J);
                 break;// randomly selects starting position
             }
 
@@ -33,34 +33,34 @@ public class Player {
     }
 
 
-    public void move(Direction direction,Map map) throws Exception
+    public void move(Direction direction,Map map) throws IndexOutOfBoundsException
     {
         switch(direction){
             case UP:
-                position.row++;
+                position.column--;
 
                 break;
             case DOWN:
-                position.row--;
+                position.column++;
                 break;
             case LEFT:
-                position.column--;
+                position.row--;
                 break;
             case RIGHT:
-                position.column++;
+                position.row++;
                 break;
 
 
         }
-        if(position.row>map.size || position.column>map.size)
-            throw new Exception("Out of Bounds");
-
-        mapKnowledge[position.column][position.row] = map.tileColours[position.column][position.row];
+        if(position.row>=map.size || position.column>=map.size)
+            throw new IndexOutOfBoundsException();
+        else mapKnowledge[position.column][position.row] = map.tileColours[position.column][position.row];
     }
 
     public void setPosition(Position position)
     {
         this.position = position;
+       // mapKnowledge[position.column][position.row] = map.tileColours[position.column][position.row];
     }
 
 

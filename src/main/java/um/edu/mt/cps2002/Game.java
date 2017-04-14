@@ -41,7 +41,7 @@ public class Game
 */
     public static void generateHTMLFiles(Player player,int player_no) {
 
-        String filepath = String.format("/board_%d.html",player_no);
+        String filepath = String.format("./board_%d.html",player_no);
         String outputString = "<table>\n";
         for (int i = 0; i < map.size; i++)
         {
@@ -115,12 +115,15 @@ public class Game
 
         while(win == 0){
             for(int i=0;i<players.length;i++) {
+
                 if(map.getTileType(players[i].position)==Colour.BLUE){
+                    System.out.printf("Player %d    has landed on water! \n",i+1);
                     //reset player position to new random position
                     int I =  (int) Math.floor(Math.random()*map.size);
                     int J = (int) Math.floor(Math.random()*map.size);
                     players[i].setPosition(new Position(I,J));
-                    generateHTMLFiles(players[i],i);
+                    players[i].mapKnowledge[I][J]=map.tileColours[I][J];
+                    generateHTMLFiles(players[i],i+1);
 
                 }
 
@@ -131,23 +134,23 @@ public class Game
 
                         if (move.equals("^")) {
                             players[i].move(Direction.UP, map);
-                            generateHTMLFiles(players[i], i);
+                            generateHTMLFiles(players[i], i+1);
                             break;
                         } else if (move.equals("_")) {
                             players[i].move(Direction.DOWN, map);
-                            generateHTMLFiles(players[i], i);
+                            generateHTMLFiles(players[i], i+1);
                             break;
                         } else if (move.equals("<")) {
                             players[i].move(Direction.LEFT, map);
-                            generateHTMLFiles(players[i], i);
+                            generateHTMLFiles(players[i], i+1);
                             break;
                         } else if (move.equals(">")) {
                             players[i].move(Direction.RIGHT, map);
-                            generateHTMLFiles(players[i], i);
+                            generateHTMLFiles(players[i], i+1);
                             break;
                         } else continue;
-                    }catch(Exception e){
-                        System.err.println(e.getMessage());
+                    }catch(IndexOutOfBoundsException e){
+                        System.err.println("Out of Bounds!");
                     }
                 }
             }
@@ -156,6 +159,7 @@ public class Game
             win = Winner();
         }
 
+        System.out.printf("Player: %d Wins!",win);
 
 
     }
