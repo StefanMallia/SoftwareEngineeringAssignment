@@ -39,17 +39,19 @@ public class Game
 
     }
 */
-    public static void generateHTMLFiles(Player player,int player_no) {
+    public static void generateHTMLFiles(Player player,int player_no, String directory) {
 
-        String filepath = String.format("./board_%d.html",player_no);
+        if (directory.length() >= 1 && !directory.endsWith("/"))
+            directory = directory + "/";
+        String filepath = String.format(directory + "./player%dMap.html", player_no);
         String outputString = "<table>\n";
         for (int i = 0; i < map.size; i++)
         {
             outputString += "  <tr>\n";
             for (int j = 0; j < map.size; j++)
             {//red represents player position
-                if (i == player.position.column && j == player.position.row)
-                    outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"red\" align=\"center\"><font size=\"5\">('_')</font></td>\n";
+                if (i == player.position.row && j == player.position.column)
+                    outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"green\" align=\"center\"><font size=\"5\">('_')</font></td>\n";
                 else if (player.mapKnowledge[i][j] == Colour.GREEN)
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"green\"></td>\n";
                 else if (player.mapKnowledge[i][j] == Colour.BLUE)
@@ -61,7 +63,7 @@ public class Game
             }
             outputString += "  </tr>\n";
         }
-        outputString += "  </table>";
+        outputString += "</table>";
 
         BufferedWriter writer = null;
         try
@@ -105,7 +107,7 @@ public class Game
 
         for(int i=0;i<players.length;i++){
             players[i] = new Player(map.tileColours);//initialize players with greyed out map knowledge
-            generateHTMLFiles(players[i],i+1);
+            generateHTMLFiles(players[i],i+1, ".");
 
         }
 
@@ -121,9 +123,9 @@ public class Game
                     //reset player position to new random position
                     int I =  (int) Math.floor(Math.random()*map.size);
                     int J = (int) Math.floor(Math.random()*map.size);
-                    players[i].setPosition(new Position(I,J));
+                    players[i].setPosition(new Position(I,J), map);
                     players[i].mapKnowledge[I][J]=map.tileColours[I][J];
-                    generateHTMLFiles(players[i],i+1);
+                    generateHTMLFiles(players[i],i+1, ".");
 
                 }
 
@@ -134,19 +136,19 @@ public class Game
 
                         if (move.equals("^")) {
                             players[i].move(Direction.UP, map);
-                            generateHTMLFiles(players[i], i+1);
+                            generateHTMLFiles(players[i], i+1, ".");
                             break;
                         } else if (move.equals("_")) {
                             players[i].move(Direction.DOWN, map);
-                            generateHTMLFiles(players[i], i+1);
+                            generateHTMLFiles(players[i], i+1, ".");
                             break;
                         } else if (move.equals("<")) {
                             players[i].move(Direction.LEFT, map);
-                            generateHTMLFiles(players[i], i+1);
+                            generateHTMLFiles(players[i], i+1, ".");
                             break;
                         } else if (move.equals(">")) {
                             players[i].move(Direction.RIGHT, map);
-                            generateHTMLFiles(players[i], i+1);
+                            generateHTMLFiles(players[i], i+1, ".");
                             break;
                         } else continue;
                     }catch(IndexOutOfBoundsException e){
