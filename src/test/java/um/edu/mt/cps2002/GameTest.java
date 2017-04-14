@@ -17,7 +17,7 @@ public class GameTest
     @Before
     public void setUp()
     {
-        Game.map = new Map();
+
 
     }
     @Test
@@ -36,15 +36,18 @@ public class GameTest
     @Test
     public void testGenerateHTMLFiles()
     {
+        Game.map = new Map();
+
         Game.setNumPlayers(2);
+        Game.map.setMapSize(6,2);
         Game.players = new Player[2];
         Game.players[0] = new Player(Game.map.tileColours);
         Game.players[0].setPosition(new Position(0,0));
         Game.players[1] = new Player(Game.map.tileColours);
         Game.players[1].setPosition(new Position(5,5));
 
-        Game.map = new Map();
-        Game.map.setMapSize(6, 2);
+
+
 
 
         Game.players[0].mapKnowledge = new Colour[][]{

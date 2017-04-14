@@ -21,16 +21,20 @@ public class MapTest
     @Test
     public void testSetMapSize()
     {
-        Assert.assertEquals(false, mapTest.setMapSize(4, 4));
-        Assert.assertEquals(true, mapTest.setMapSize(5,2));
-        Assert.assertEquals(true, mapTest.setMapSize(5,4));
-        Assert.assertEquals(false, mapTest.setMapSize(5,5));
-        Assert.assertEquals(true, mapTest.setMapSize(8,5));
-        Assert.assertEquals(false, mapTest.setMapSize(51,5));
+
+            Assert.assertEquals(false, mapTest.setMapSize(4, 4));
+            Assert.assertEquals(true, mapTest.setMapSize(5, 2));
+            Assert.assertEquals(true, mapTest.setMapSize(5, 4));
+            Assert.assertEquals(false, mapTest.setMapSize(5, 5));
+            Assert.assertEquals(true, mapTest.setMapSize(8, 5));
+            Assert.assertEquals(false, mapTest.setMapSize(51, 5));
+
+
     }
     @Test
     public void testGetTileType()
     {
+        mapTest.setMapSize(6,3);
         mapTest.tileColours = new Colour[][]{
                 {Colour.GREEN, Colour.GREEN, Colour.GREEN, Colour.GREEN, Colour.GREEN, Colour.YELLOW},
                 {Colour.GREEN, Colour.GREEN, Colour.GREEN, Colour.BLUE, Colour.BLUE, Colour.BLUE},
@@ -49,6 +53,7 @@ public class MapTest
     @Test(expected=IndexOutOfBoundsException.class)
     public void testGetTileTypeOOB1()
     {
+        mapTest.setMapSize(6,3);
         mapTest.generate();
         mapTest.getTileType(mapTest.size, 0);
 
@@ -56,12 +61,14 @@ public class MapTest
     @Test(expected=IndexOutOfBoundsException.class)
     public void testGetTileTypeOOB2()
     {
+        mapTest.setMapSize(6,3);
         mapTest.generate();
         mapTest.getTileType(0, mapTest.size);
     }
     @Test(expected=IndexOutOfBoundsException.class)
     public void testGetTileTypeOOB3()
     {
+        mapTest.setMapSize(6,3);
         mapTest.generate();
         mapTest.getTileType(mapTest.size, mapTest.size);
     }
