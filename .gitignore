@@ -1,2 +1,3 @@
-/target
+/target/
 /*.html
+/src/test/resources/um/edu/mt/cps2002/*.html
