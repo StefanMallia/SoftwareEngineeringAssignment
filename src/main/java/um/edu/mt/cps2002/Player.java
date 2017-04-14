@@ -20,8 +20,8 @@ public class Player {
         }
 
         while(true) {
-            int I = (int) Math.random() % map.length;
-            int J = (int) Math.random() % map.length;
+            int I = (int) Math.floor(Math.random()*map.length);
+            int J = (int) Math.floor(Math.random()*map.length);
 
             if(map[J][I]==Colour.GREEN){
                 mapKnowledge[J][I] = Colour.GREEN;

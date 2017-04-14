@@ -90,12 +90,12 @@ public class Game
         int plrs=0;
         int size=0;
 
-        while (!setNumPlayers(plrs)) {
+        do{
             System.out.println("Please enter number between 2 and 8 inclusive");
             plrs = s.nextInt();
-        }
+        }while (!setNumPlayers(plrs));
 
-        do {
+            do {
             System.out.println("Enter size of grid");
             size=s.nextInt();
             map = new Map();
@@ -117,8 +117,8 @@ public class Game
             for(int i=0;i<players.length;i++) {
                 if(map.getTileType(players[i].position)==Colour.BLUE){
                     //reset player position to new random position
-                    int I =  (int) Math.ceil(Math.random()*map.size);
-                    int J = (int) Math.ceil(Math.random()*map.size);
+                    int I =  (int) Math.floor(Math.random()*map.size);
+                    int J = (int) Math.floor(Math.random()*map.size);
                     players[i].setPosition(new Position(I,J));
                     generateHTMLFiles(players[i],i);
 
