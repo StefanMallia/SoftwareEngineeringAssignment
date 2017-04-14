@@ -25,7 +25,6 @@ public class PlayerTest
             playerTest.position = new Position(0, 0);
 
             playerTest.move(Direction.RIGHT, map);
-
             Assert.assertEquals(true, playerTest.position.equals(0, 1));
             playerTest.move(Direction.DOWN, map);
             Assert.assertEquals(true, playerTest.position.equals(1, 1));
@@ -44,15 +43,11 @@ public class PlayerTest
     public void testSetPosition()
     {
         playerTest.position = new Position(0,0);
-        System.out.println(playerTest.position.column);
-        System.out.println(playerTest.position.row);
-        playerTest.setPosition(new Position(5,5));
-        System.out.println(playerTest.position.column);
-        System.out.println(playerTest.position.row);
+        playerTest.setPosition(new Position(5,5), map);
         Assert.assertEquals(true, playerTest.position.equals(5,5));
-        playerTest.setPosition(new Position(2,5));
+        playerTest.setPosition(new Position(2,5), map);
         Assert.assertEquals(true, playerTest.position.equals(2,5));
-        playerTest.setPosition(new Position(5,3));
+        playerTest.setPosition(new Position(5,3), map);
         Assert.assertEquals(true, playerTest.position.equals(5,3));
     }
 }
