@@ -113,4 +113,29 @@ public class MapTest
         mapTest.getTileType(mapTest.size, mapTest.size);
     }
 
+
+
+    @Test(expected=IndexOutOfBoundsException.class)
+    public void testGetTileTypeOOB4()
+    {
+        mapTest.setMapSize(6,3);
+        mapTest.generate();
+        mapTest.getTileType(new Position(mapTest.size, 0));
+
+    }
+    @Test(expected=IndexOutOfBoundsException.class)
+    public void testGetTileTypeOOB5()
+    {
+        mapTest.setMapSize(6,3);
+        mapTest.generate();
+        mapTest.getTileType(new Position(0, mapTest.size));
+    }
+    @Test(expected=IndexOutOfBoundsException.class)
+    public void testGetTileTypeOOB6()
+    {
+        mapTest.setMapSize(6,3);
+        mapTest.generate();
+        mapTest.getTileType(new Position(mapTest.size, mapTest.size));
+    }
+
 }
