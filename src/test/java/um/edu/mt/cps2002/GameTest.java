@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.awt.*;
 import java.io.IOException;
 
 
@@ -22,6 +23,8 @@ public class GameTest
         Game.map.setMapSize(6,2);
         Game.map.generate();
         Game.players = new Player[2];
+        Game.players[0] = new Player(Game.map.tileColours);
+        Game.players[1] = new Player(Game.map.tileColours);
 
     }
     @Test
@@ -35,7 +38,16 @@ public class GameTest
         Assert.assertEquals(false, Game.setNumPlayers(9));
 
     }
+    @Test
+    public void testWinner()
+    {
+        Game.map.tileColours[Game.players[0].initialPosition.row][Game.players[0].initialPosition.column] = Colour.YELLOW;
+        Assert.assertEquals(1, Game.Winner());
 
+        Game.map.tileColours[Game.players[0].initialPosition.row][Game.players[0].initialPosition.column] = Colour.GREEN;
+        Game.map.tileColours[Game.players[1].initialPosition.row][Game.players[1].initialPosition.column] = Colour.YELLOW;
+        Assert.assertEquals(2, Game.Winner());
+    }
 
     @Test
     public void testGenerateHTMLFiles()
