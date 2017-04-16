@@ -31,6 +31,44 @@ public class MapTest
 
 
     }
+
+    @Test
+    public void testGenerate()
+    {
+        mapTest.setMapSize(50, 5);
+        mapTest.generate();
+        int countTreasure = 0;
+        for (int i = 0; i < mapTest.size; i++) {
+            for (int j = 0; j < mapTest.size; j++) {
+                if (mapTest.tileColours[i][j] == Colour.YELLOW)
+                    countTreasure++;
+            }
+        }
+        Assert.assertEquals(1, countTreasure);
+
+        //make sure no neighboring water tiles are present
+        for (int i = 0; i < mapTest.size; i++) {
+            for (int j = 0; j < mapTest.size; j++) {
+                if (mapTest.tileColours[i][j] == Colour.BLUE) {
+                    boolean one_neighboring_blue = false;
+                    for (int n = i - 1; n <= i + 1; n++) {
+                        for (int m = j - 1; m <= j + 1; m++) {
+                            //skip when out of bounds index and when (n, m) == (i, j)
+                            if (n != -1 && n != mapTest.size && m != -1 && m != mapTest.size && n != i && m != j) {
+                                if (mapTest.tileColours[n][m] == Colour.BLUE) {
+                                    one_neighboring_blue = true;
+                                }
+                            }
+                        }
+                    }
+                    Assert.assertFalse(one_neighboring_blue);
+
+                }
+            }
+
+        }
+    }
+
     @Test
     public void testGetTileType()
     {
@@ -49,6 +87,8 @@ public class MapTest
         Assert.assertTrue(mapTest.getTileType(mapTest.size-1, mapTest.size-1)==Colour.BLUE);
 
     }
+
+
 
     @Test(expected=IndexOutOfBoundsException.class)
     public void testGetTileTypeOOB1()

@@ -47,15 +47,14 @@ public class Map
                         boolean one_neighboring_blue = false;
                         for (int n = i-1; n <= i+1; n++) {
                             for (int m = j - 1; m <= j + 1; m++) {
-                                if (n != -1 && n != size && m != -1 && m != size) {
+                                //skip when out of bounds index and when (n, m) == (i, j)
+                                if (n != -1 && n != size && m != -1 && m != size && n != i && m != j) {
                                     if (tileColours[n][m] == Colour.BLUE) {
                                         tileColours[i][j] = Colour.GREEN;
                                         one_neighboring_blue = true;
                                         break;
                                     }
-
                                 }
-
                             }
                             if (one_neighboring_blue)
                                 break;
