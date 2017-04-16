@@ -49,7 +49,7 @@ public class Game
         {
             outputString += "  <tr>\n";
             for (int j = 0; j < map.size; j++)
-            {//red reresents player position
+            {
                 if (player.mapKnowledge[i][j] == Colour.YELLOW)
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"yellow\" align=\"center\"><font size=\"5\">('_')</font></td>\n";
                 else if (i == player.position.row && j == player.position.column)
@@ -58,8 +58,6 @@ public class Game
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"green\"></td>\n";
                 else if (player.mapKnowledge[i][j] == Colour.BLUE)
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"blue\"></td>\n";
-                else if (player.mapKnowledge[i][j] == Colour.YELLOW)
-                    outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"yellow\"></td>\n";
                 else
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"grey\"></td>\n";
             }
