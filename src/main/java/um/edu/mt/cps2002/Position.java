@@ -6,6 +6,12 @@ package um.edu.mt.cps2002;
 public class Position {
     int row;
     int column;
+
+    Position(Position position)
+    {
+        this.row = position.row;
+        this.column = position.column;
+    }
     Position(int row, int column)
     {
         this.row = row;

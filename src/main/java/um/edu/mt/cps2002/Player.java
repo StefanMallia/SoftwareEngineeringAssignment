@@ -6,7 +6,7 @@ import java.math.*;
  */
 public class Player {
     Position position;
-    //Position initialPosition;
+    Position initialPosition;
     Colour[][] mapKnowledge;
 
 
@@ -26,6 +26,7 @@ public class Player {
             if(map[I][J]==Colour.GREEN){
                 mapKnowledge[I][J] = Colour.GREEN;
                 position = new Position(I,J);
+                initialPosition = new Position(position);
                 break;// randomly selects starting position
             }
 
@@ -33,8 +34,9 @@ public class Player {
     }
 
 
-    public void move(Direction direction, Map map) throws IndexOutOfBoundsException
+    public boolean move(Direction direction, Map map)
     {
+        Position previousPosition = new Position(position);
         switch(direction){
             case UP:
                 position.row--;
@@ -49,12 +51,16 @@ public class Player {
                 position.column++;
                 break;
         }
-        if(position.row>=map.size || position.column>=map.size)
-            throw new IndexOutOfBoundsException();
-        else if(position.row < 0 || position.column < 0)
-            throw new IndexOutOfBoundsException();
-        else
-            mapKnowledge[position.row][position.column] = map.tileColours[position.row][position.column];
+        if(position.row>=map.size || position.column>=map.size) {
+            position = previousPosition;
+            return false;
+        }
+        else if(position.row < 0 || position.column < 0) {
+            position = previousPosition;
+            return false;
+        }
+        mapKnowledge[position.row][position.column] = map.tileColours[position.row][position.column];
+        return true;
     }
 
     public void setPosition(Position position, Map map)

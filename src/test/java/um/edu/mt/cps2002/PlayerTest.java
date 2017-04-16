@@ -21,22 +21,23 @@ public class PlayerTest
     @Test
     public void testMove()
     {
-        try {
-            playerTest.position = new Position(0, 0);
 
-            playerTest.move(Direction.RIGHT, map);
-            Assert.assertEquals(true, playerTest.position.equals(0, 1));
-            playerTest.move(Direction.DOWN, map);
-            Assert.assertEquals(true, playerTest.position.equals(1, 1));
-            playerTest.move(Direction.UP, map);
-            Assert.assertEquals(true, playerTest.position.equals(0, 1));
-            playerTest.move(Direction.LEFT, map);
-            Assert.assertEquals(true, playerTest.position.equals(0, 0));
+        playerTest.position = new Position(0, 0);
 
-        }catch(Exception e){
-            System.err.println(e.getMessage());
+        playerTest.move(Direction.RIGHT, map);
+        Assert.assertEquals(true, playerTest.position.equals(0, 1));
+        playerTest.move(Direction.DOWN, map);
+        Assert.assertEquals(true, playerTest.position.equals(1, 1));
+        playerTest.move(Direction.UP, map);
+        Assert.assertEquals(true, playerTest.position.equals(0, 1));
+        playerTest.move(Direction.LEFT, map);
+        Assert.assertEquals(true, playerTest.position.equals(0, 0));
+        playerTest.move(Direction.UP, map);
+        Assert.assertEquals(false, playerTest.position.equals(-1, 0));
+        playerTest.move(Direction.LEFT, map);
+        Assert.assertEquals(false, playerTest.position.equals(-1, -1));
+        Assert.assertEquals(false, playerTest.position.equals(0, -1));
 
-        }
     }
 
     @Test

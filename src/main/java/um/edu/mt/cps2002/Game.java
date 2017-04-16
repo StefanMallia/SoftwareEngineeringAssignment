@@ -49,8 +49,10 @@ public class Game
         {
             outputString += "  <tr>\n";
             for (int j = 0; j < map.size; j++)
-            {//red represents player position
-                if (i == player.position.row && j == player.position.column)
+            {//red reresents player position
+                if (player.mapKnowledge[i][j] == Colour.YELLOW)
+                    outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"yellow\" align=\"center\"><font size=\"5\">('_')</font></td>\n";
+                else if (i == player.position.row && j == player.position.column)
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"green\" align=\"center\"><font size=\"5\">('_')</font></td>\n";
                 else if (player.mapKnowledge[i][j] == Colour.GREEN)
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"green\"></td>\n";
@@ -97,7 +99,7 @@ public class Game
             plrs = s.nextInt();
         }while (!setNumPlayers(plrs));
 
-            do {
+        do {
             System.out.println("Enter size of grid");
             size=s.nextInt();
             map = new Map();
@@ -118,42 +120,33 @@ public class Game
         while(win == 0){
             for(int i=0;i<players.length;i++) {
 
-                if(map.getTileType(players[i].position)==Colour.BLUE){
-                    System.out.printf("Player %d    has landed on water! \n",i+1);
-                    //reset player position to new random position
-                    int I =  (int) Math.floor(Math.random()*map.size);
-                    int J = (int) Math.floor(Math.random()*map.size);
-                    players[i].setPosition(new Position(I,J), map);
-                    players[i].mapKnowledge[I][J]=map.tileColours[I][J];
-                    generateHTMLFiles(players[i],i+1, ".");
 
-                }
 
                 while(true){
                     System.out.printf("Enter Move for Player %d \n", i + 1);
                     String move = s.next();
-                    try {
 
-                        if (move.equals("^")) {
-                            players[i].move(Direction.UP, map);
-                            generateHTMLFiles(players[i], i+1, ".");
-                            break;
-                        } else if (move.equals("_")) {
-                            players[i].move(Direction.DOWN, map);
-                            generateHTMLFiles(players[i], i+1, ".");
-                            break;
-                        } else if (move.equals("<")) {
-                            players[i].move(Direction.LEFT, map);
-                            generateHTMLFiles(players[i], i+1, ".");
-                            break;
-                        } else if (move.equals(">")) {
-                            players[i].move(Direction.RIGHT, map);
-                            generateHTMLFiles(players[i], i+1, ".");
-                            break;
-                        } else continue;
-                    }catch(IndexOutOfBoundsException e){
-                        System.err.println("Out of Bounds!");
-                    }
+                    if (move.equals("^") && players[i].move(Direction.UP, map)) {
+                        generateHTMLFiles(players[i], i+1, ".");
+                        break;
+                    } else if (move.equals("_") && players[i].move(Direction.DOWN, map)) {
+                        generateHTMLFiles(players[i], i+1, ".");
+                        break;
+                    } else if (move.equals("<") && players[i].move(Direction.LEFT, map)) {
+                        generateHTMLFiles(players[i], i+1, ".");
+                        break;
+                    } else if (move.equals(">") && players[i].move(Direction.RIGHT, map)) {
+                        generateHTMLFiles(players[i], i+1, ".");
+                        break;
+                    } else continue;
+
+                }
+                if(map.getTileType(players[i].position)==Colour.BLUE){
+                    System.out.printf("Player %d    has landed on water! \n",i+1);
+                    //reset player position to initial position
+                    players[i].setPosition(new Position(players[i].initialPosition), map);
+                    generateHTMLFiles(players[i],i+1, ".");
+
                 }
             }
 
