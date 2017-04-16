@@ -17,6 +17,7 @@ public class Position {
         this.row = row;
         this.column = column;
     }
+    /*
     public boolean equals(Position otherPosition)
     {
         if ( row == otherPosition.row && column == otherPosition.column)
@@ -24,6 +25,7 @@ public class Position {
         else
             return false;
     }
+    */
     public boolean equals(int r, int c)
     {
         if ( row == r && column == c)
