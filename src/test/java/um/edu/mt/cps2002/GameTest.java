@@ -42,11 +42,17 @@ public class GameTest
     public void testWinner()
     {
         Game.map.tileColours[Game.players[0].initialPosition.row][Game.players[0].initialPosition.column] = Colour.YELLOW;
-        Assert.assertEquals(1, Game.Winner());
+        Game.map.tileColours[Game.players[1].initialPosition.row][Game.players[1].initialPosition.column] = Colour.GREEN;
+        Assert.assertEquals(true, Game.Winner(Game.players[0]));
+        Assert.assertEquals(false, Game.Winner(Game.players[1]));
 
         Game.map.tileColours[Game.players[0].initialPosition.row][Game.players[0].initialPosition.column] = Colour.GREEN;
         Game.map.tileColours[Game.players[1].initialPosition.row][Game.players[1].initialPosition.column] = Colour.YELLOW;
-        Assert.assertEquals(2, Game.Winner());
+        Assert.assertEquals(true, Game.Winner(Game.players[1]));
+        Assert.assertEquals(false, Game.Winner(Game.players[0]));
+
+
+
     }
 
     @Test
