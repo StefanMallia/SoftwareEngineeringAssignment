@@ -14,17 +14,10 @@ public class Game
 
 
 
-    public static int Winner(){
-        int winner = 0;
-
-        for(int i=0;i<players.length;i++){
-            if(map.getTileType(players[i].position)==Colour.YELLOW) {
-                winner = i + 1;
-                break;
-            }
-        }
-
-        return  winner;
+    public static boolean Winner(Player player){
+        if (map.getTileType(player.position) == Colour.YELLOW)
+            return true;
+        return false;
 }
 
     public static boolean setNumPlayers(int n) {
@@ -113,9 +106,9 @@ public class Game
 
         System.out.println("Valid Moves: up ^ ,down _ ,left < , right > \n" );
 
-        int win =0;
+        boolean win = false;
 
-        while(win == 0){
+        while(!win){
             for(int i=0;i<players.length;i++) {
 
 
@@ -148,11 +141,14 @@ public class Game
                 }
             }
 
-
-            win = Winner();
+            for (int player_index = 0; player_index < Game.players.length; player_index++)
+                if (Game.Winner(Game.players[player_index])) {
+                    win = true;
+                    System.out.printf("Player: %d Wins!", player_index + 1);
+                }
         }
 
-        System.out.printf("Player: %d Wins!",win);
+
 
 
     }
