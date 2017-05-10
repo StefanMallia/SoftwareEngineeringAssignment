@@ -13,11 +13,22 @@ public class MapTest
 {
     Map mapTest;
 
+
     @Before
     public void setUp()
     {
-        mapTest = new Map();
+        mapTest = Map.getInstance();
     }
+
+    @Test
+    public void testGetInstance()
+    {
+        Assert.assertNotEquals(mapTest, null);
+        Map mapTest2 = Map.getInstance();
+        Assert.assertEquals(mapTest2, null);
+    }
+
+
     @Test
     public void testSetMapSize()
     {
@@ -87,6 +98,8 @@ public class MapTest
         Assert.assertTrue(mapTest.getTileType(mapTest.size-1, mapTest.size-1)==Colour.BLUE);
 
     }
+
+
 
 
 

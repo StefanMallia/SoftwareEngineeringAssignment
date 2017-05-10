@@ -18,6 +18,72 @@ public class PlayerTest
         playerTest = new Player(map.tileColours);
 
     }
+
+    @Test
+    public void testGetTileKnowledge() {
+        //ensuring all tiles are greyed except initial tile for player 1
+        int count = 0;
+        for (int i = 0; i < map.size; i++) {
+            for (int j = 0; j < map.size; j++) {
+                if (playerTest.getTileKnowledge(new Position(i, j), map) == Colour.GREY)
+                    count++;
+            }
+        }
+        Assert.assertEquals(count, map.size*map.size-1);
+
+
+        //ensuring player movement reveals tiles
+        if (playerTest.position.column != 0)
+            playerTest.move(Direction.RIGHT, map);
+        else
+            playerTest.move(Direction.LEFT, map);
+        count = 0;
+        for (int i = 0; i < map.size; i++) {
+            for (int j = 0; j < map.size; j++) {
+                if (playerTest.getTileKnowledge(new Position(i, j), map) == Colour.GREY)
+                    count++;
+            }
+        }
+        Assert.assertEquals(count, map.size*map.size-2);
+
+
+        //ensuring player movement reveals tiles
+        if (playerTest.position.column != 0)
+            playerTest.move(Direction.UP, map);
+        else
+            playerTest.move(Direction.DOWN, map);
+        count = 0;
+        for (int i = 0; i < map.size; i++) {
+            for (int j = 0; j < map.size; j++) {
+                if (playerTest.getTileKnowledge(new Position(i, j), map) == Colour.GREY)
+                    count++;
+            }
+        }
+        Assert.assertEquals(count, map.size*map.size-3);
+
+        //ensuring setPosition reveals tiles
+        boolean finishLoop = false;
+        for (int i = 0; i < map.size; i++) {
+            for (int j = 0; j < map.size; j++) {
+                if (map.tileColours[i][j] == Colour.GREEN && playerTest.getTileKnowledge(new Position(i, j), map) == Colour.GREY) {
+                    playerTest.setPosition(new Position(i, j), map);
+                    Assert.assertEquals(map.tileColours[i][j], playerTest.getTileKnowledge(new Position(i, j), map))
+                }
+
+            }
+        }
+    }
+
+    @Test
+    public void testSetTileKnowledge() {
+        for (int i = 0; i < map.size; i++) {
+            for (int j = 0; j < map.size; j++) {
+                playerTest.setTileKnowledge(new Position(i,j), map);
+                Assert.assertEquals(map.tileColours[i][j], playerTest.getTileKnowledge(new Position(i, j), map));
+            }
+        }
+    }
+
     @Test
     public void testMove()
     {
