@@ -10,12 +10,12 @@ public class Game
 {
     //static int turn;
     static Player[] players;
-    static Map map;
+    static GameMap gameMap;
 
 
 
-    public static boolean Winner(Player player){
-        if (map.getTileType(player.position) == Colour.YELLOW)
+    public static boolean Winner(Player player) {
+        if (gameMap.getTileType(player.position) == Colour.YELLOW)
             return true;
         return false;
 }
@@ -38,18 +38,18 @@ public class Game
             directory = directory + "/";
         String filepath = String.format(directory + "./player%dMap.html", player_no);
         String outputString = "<table>\n";
-        for (int i = 0; i < map.size; i++)
+        for (int i = 0; i < gameMap.size; i++)
         {
             outputString += "  <tr>\n";
-            for (int j = 0; j < map.size; j++)
+            for (int j = 0; j < gameMap.size; j++)
             {
-                if (player.mapKnowledge[i][j] == Colour.YELLOW)
+                if (player.getTileKnowledge(new Position(i, j)) == Colour.YELLOW)
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"yellow\" align=\"center\"><font size=\"5\">('_')</font></td>\n";
                 else if (i == player.position.row && j == player.position.column)
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"green\" align=\"center\"><font size=\"5\">('_')</font></td>\n";
-                else if (player.mapKnowledge[i][j] == Colour.GREEN)
+                else if (player.getTileKnowledge(new Position(i, j)) == Colour.GREEN)
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"green\"></td>\n";
-                else if (player.mapKnowledge[i][j] == Colour.BLUE)
+                else if (player.getTileKnowledge(new Position(i, j)) == Colour.BLUE)
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"blue\"></td>\n";
                 else
                     outputString += "    <td width=\"50\" height=\"50\" bgcolor=\"grey\"></td>\n";
@@ -90,16 +90,16 @@ public class Game
             plrs = s.nextInt();
         }while (!setNumPlayers(plrs));
 
+        gameMap = GameMap.getInstance();
         do {
             System.out.println("Enter size of grid");
             size=s.nextInt();
-            map = new Map();
-        }while(!map.setMapSize(size,plrs));
+        }while(!gameMap.setMapSize(size,plrs));
 
-        map.generate();
+        gameMap.generate();
 
         for(int i=0;i<players.length;i++){
-            players[i] = new Player(map.tileColours);//initialize players with greyed out map knowledge
+            players[i] = new Player(gameMap);//initialize players with greyed out gameMap knowledge
             generateHTMLFiles(players[i],i+1, ".");
 
         }
@@ -117,25 +117,25 @@ public class Game
                     System.out.printf("Enter Move for Player %d \n", i + 1);
                     String move = s.next();
 
-                    if (move.equals("^") && players[i].move(Direction.UP, map)) {
+                    if (move.equals("^") && players[i].move(Direction.UP, gameMap)) {
                         generateHTMLFiles(players[i], i+1, ".");
                         break;
-                    } else if (move.equals("_") && players[i].move(Direction.DOWN, map)) {
+                    } else if (move.equals("_") && players[i].move(Direction.DOWN, gameMap)) {
                         generateHTMLFiles(players[i], i+1, ".");
                         break;
-                    } else if (move.equals("<") && players[i].move(Direction.LEFT, map)) {
+                    } else if (move.equals("<") && players[i].move(Direction.LEFT, gameMap)) {
                         generateHTMLFiles(players[i], i+1, ".");
                         break;
-                    } else if (move.equals(">") && players[i].move(Direction.RIGHT, map)) {
+                    } else if (move.equals(">") && players[i].move(Direction.RIGHT, gameMap)) {
                         generateHTMLFiles(players[i], i+1, ".");
                         break;
                     } else continue;
 
                 }
-                if(map.getTileType(players[i].position)==Colour.BLUE){
+                if(gameMap.getTileType(players[i].position)==Colour.BLUE){
                     System.out.printf("Player %d    has landed on water! \n",i+1);
                     //reset player position to initial position
-                    players[i].setPosition(new Position(players[i].initialPosition), map);
+                    players[i].setPosition(new Position(players[i].initialPosition), gameMap);
                     generateHTMLFiles(players[i],i+1, ".");
 
                 }
