@@ -5,7 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.*;
 import java.io.IOException;
 
 
@@ -17,14 +16,15 @@ public class GameTest
     @Before
     public void setUp()
     {
-        Game.map = new Map();
+        GameMap.getInstance();
+        Game.gameMap = GameMap.instance;
 
         Game.setNumPlayers(2);
-        Game.map.setMapSize(6,2);
-        Game.map.generate();
+        Game.gameMap.setMapSize(6,2);
+        Game.gameMap.generate();
         Game.players = new Player[2];
-        Game.players[0] = new Player(Game.map.tileColours);
-        Game.players[1] = new Player(Game.map.tileColours);
+        Game.players[0] = new Player(Game.gameMap);
+        Game.players[1] = new Player(Game.gameMap);
 
     }
     @Test
@@ -41,13 +41,13 @@ public class GameTest
     @Test
     public void testWinner()
     {
-        Game.map.tileColours[Game.players[0].initialPosition.row][Game.players[0].initialPosition.column] = Colour.YELLOW;
-        Game.map.tileColours[Game.players[1].initialPosition.row][Game.players[1].initialPosition.column] = Colour.GREEN;
+        Game.gameMap.tileColours[Game.players[0].initialPosition.row][Game.players[0].initialPosition.column] = Colour.YELLOW;
+        Game.gameMap.tileColours[Game.players[1].initialPosition.row][Game.players[1].initialPosition.column] = Colour.GREEN;
         Assert.assertEquals(true, Game.Winner(Game.players[0]));
         Assert.assertEquals(false, Game.Winner(Game.players[1]));
 
-        Game.map.tileColours[Game.players[0].initialPosition.row][Game.players[0].initialPosition.column] = Colour.GREEN;
-        Game.map.tileColours[Game.players[1].initialPosition.row][Game.players[1].initialPosition.column] = Colour.YELLOW;
+        Game.gameMap.tileColours[Game.players[0].initialPosition.row][Game.players[0].initialPosition.column] = Colour.GREEN;
+        Game.gameMap.tileColours[Game.players[1].initialPosition.row][Game.players[1].initialPosition.column] = Colour.YELLOW;
         Assert.assertEquals(true, Game.Winner(Game.players[1]));
         Assert.assertEquals(false, Game.Winner(Game.players[0]));
 
@@ -59,31 +59,17 @@ public class GameTest
     public void testGenerateHTMLFiles()
     {
 
-        Game.players[0] = new Player(Game.map.tileColours);
-        Game.players[0].setPosition(new Position(0,0), Game.map);
-        Game.players[1] = new Player(Game.map.tileColours);
-        Game.players[1].setPosition(new Position(5,5), Game.map);
+        Game.players[0] = new Player(Game.gameMap);
+        Game.players[0].setPosition(new Position(0,0), Game.gameMap);
+        Game.players[1] = new Player(Game.gameMap);
+        Game.players[1].setPosition(new Position(5,5), Game.gameMap);
 
 
+        Game.players[0].mapKnowledge.clear();
+        Game.players[0].setTileKnowledge(new Position(0,0), Colour.GREEN);
+        Game.players[1].mapKnowledge.clear();
+        Game.players[1].setTileKnowledge(new Position(5,5), Colour.GREEN);
 
-
-
-        Game.players[0].mapKnowledge = new Colour[][]{
-                {Colour.GREEN, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-        };
-        Game.players[1].mapKnowledge = new Colour[][]{
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY},
-                {Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREY, Colour.GREEN},
-        };
         Game.generateHTMLFiles(Game.players[0], 0, "./src/test/resources/um/edu/mt/cps2002/");
         Game.generateHTMLFiles(Game.players[1], 1, "./src/test/resources/um/edu/mt/cps2002/");
 
