@@ -8,14 +8,15 @@ import org.junit.Test;
 public class PlayerTest
 {
     Player playerTest;
-    Map map;
+    GameMap gameMap;
 
     @Before
-    public void setUp()
-    {   map = new Map();
-        map.setMapSize(6,3);
-        map.generate();
-        playerTest = new Player(map.tileColours);
+    public void setUp() {
+        GameMap.getInstance();
+        gameMap = GameMap.instance;
+        gameMap.setMapSize(6,3);
+        gameMap.generate();
+        playerTest = new Player(gameMap);
 
     }
 
@@ -23,51 +24,50 @@ public class PlayerTest
     public void testGetTileKnowledge() {
         //ensuring all tiles are greyed except initial tile for player 1
         int count = 0;
-        for (int i = 0; i < map.size; i++) {
-            for (int j = 0; j < map.size; j++) {
-                if (playerTest.getTileKnowledge(new Position(i, j), map) == Colour.GREY)
+        for (int i = 0; i < gameMap.size; i++) {
+            for (int j = 0; j < gameMap.size; j++) {
+                if (playerTest.getTileKnowledge(new Position(i, j)) == Colour.GREY)
                     count++;
             }
         }
-        Assert.assertEquals(count, map.size*map.size-1);
+        Assert.assertEquals(gameMap.size*gameMap.size - 1, count);
 
 
         //ensuring player movement reveals tiles
-        if (playerTest.position.column != 0)
-            playerTest.move(Direction.RIGHT, map);
+        if (playerTest.position.column == 0)
+            playerTest.move(Direction.RIGHT, gameMap);
         else
-            playerTest.move(Direction.LEFT, map);
+            playerTest.move(Direction.LEFT, gameMap);
         count = 0;
-        for (int i = 0; i < map.size; i++) {
-            for (int j = 0; j < map.size; j++) {
-                if (playerTest.getTileKnowledge(new Position(i, j), map) == Colour.GREY)
+        for (int i = 0; i < gameMap.size; i++) {
+            for (int j = 0; j < gameMap.size; j++) {
+                if (playerTest.getTileKnowledge(new Position(i, j)) == Colour.GREY)
                     count++;
             }
         }
-        Assert.assertEquals(count, map.size*map.size-2);
+        Assert.assertEquals(gameMap.size*gameMap.size - 2, count);
 
 
         //ensuring player movement reveals tiles
-        if (playerTest.position.column != 0)
-            playerTest.move(Direction.UP, map);
+        if (playerTest.position.row == 0)
+            playerTest.move(Direction.DOWN, gameMap);
         else
-            playerTest.move(Direction.DOWN, map);
+            playerTest.move(Direction.UP, gameMap);
         count = 0;
-        for (int i = 0; i < map.size; i++) {
-            for (int j = 0; j < map.size; j++) {
-                if (playerTest.getTileKnowledge(new Position(i, j), map) == Colour.GREY)
+        for (int i = 0; i < gameMap.size; i++) {
+            for (int j = 0; j < gameMap.size; j++) {
+                if (playerTest.getTileKnowledge(new Position(i, j)) == Colour.GREY)
                     count++;
             }
         }
-        Assert.assertEquals(count, map.size*map.size-3);
+        Assert.assertEquals(gameMap.size* gameMap.size-3, count);
 
         //ensuring setPosition reveals tiles
-        boolean finishLoop = false;
-        for (int i = 0; i < map.size; i++) {
-            for (int j = 0; j < map.size; j++) {
-                if (map.tileColours[i][j] == Colour.GREEN && playerTest.getTileKnowledge(new Position(i, j), map) == Colour.GREY) {
-                    playerTest.setPosition(new Position(i, j), map);
-                    Assert.assertEquals(map.tileColours[i][j], playerTest.getTileKnowledge(new Position(i, j), map))
+        for (int i = 0; i < gameMap.size; i++) {
+            for (int j = 0; j < gameMap.size; j++) {
+                if (gameMap.tileColours[i][j] == Colour.GREEN && playerTest.getTileKnowledge(new Position(i, j)) == Colour.GREY) {
+                    playerTest.setPosition(new Position(i, j), gameMap);
+                    Assert.assertEquals(gameMap.tileColours[i][j], playerTest.getTileKnowledge(new Position(i, j)));
                 }
 
             }
@@ -76,10 +76,10 @@ public class PlayerTest
 
     @Test
     public void testSetTileKnowledge() {
-        for (int i = 0; i < map.size; i++) {
-            for (int j = 0; j < map.size; j++) {
-                playerTest.setTileKnowledge(new Position(i,j), map);
-                Assert.assertEquals(map.tileColours[i][j], playerTest.getTileKnowledge(new Position(i, j), map));
+        for (int i = 0; i < gameMap.size; i++) {
+            for (int j = 0; j < gameMap.size; j++) {
+                playerTest.setTileKnowledge(new Position(i,j), gameMap);
+                Assert.assertEquals(gameMap.tileColours[i][j], playerTest.getTileKnowledge(new Position(i, j)));
             }
         }
     }
@@ -90,17 +90,17 @@ public class PlayerTest
 
         playerTest.position = new Position(0, 0);
 
-        playerTest.move(Direction.RIGHT, map);
+        playerTest.move(Direction.RIGHT, gameMap);
         Assert.assertEquals(true, playerTest.position.equals(0, 1));
-        playerTest.move(Direction.DOWN, map);
+        playerTest.move(Direction.DOWN, gameMap);
         Assert.assertEquals(true, playerTest.position.equals(1, 1));
-        playerTest.move(Direction.UP, map);
+        playerTest.move(Direction.UP, gameMap);
         Assert.assertEquals(true, playerTest.position.equals(0, 1));
-        playerTest.move(Direction.LEFT, map);
+        playerTest.move(Direction.LEFT, gameMap);
         Assert.assertEquals(true, playerTest.position.equals(0, 0));
-        playerTest.move(Direction.UP, map);
+        playerTest.move(Direction.UP, gameMap);
         Assert.assertEquals(false, playerTest.position.equals(-1, 0));
-        playerTest.move(Direction.LEFT, map);
+        playerTest.move(Direction.LEFT, gameMap);
         Assert.assertEquals(false, playerTest.position.equals(-1, -1));
         Assert.assertEquals(false, playerTest.position.equals(0, -1));
 
@@ -110,11 +110,11 @@ public class PlayerTest
     public void testSetPosition()
     {
         playerTest.position = new Position(0,0);
-        playerTest.setPosition(new Position(5,5), map);
+        playerTest.setPosition(new Position(5,5), gameMap);
         Assert.assertEquals(true, playerTest.position.equals(5,5));
-        playerTest.setPosition(new Position(2,5), map);
+        playerTest.setPosition(new Position(2,5), gameMap);
         Assert.assertEquals(true, playerTest.position.equals(2,5));
-        playerTest.setPosition(new Position(5,3), map);
+        playerTest.setPosition(new Position(5,3), gameMap);
         Assert.assertEquals(true, playerTest.position.equals(5,3));
     }
 }
