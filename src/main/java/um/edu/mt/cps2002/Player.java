@@ -1,5 +1,5 @@
 package um.edu.mt.cps2002;
-import java.math.*;
+import java.util.HashMap;
 
 /**
  * Created by stefan on 4/13/17.
@@ -7,25 +7,19 @@ import java.math.*;
 public class Player {
     Position position;
     Position initialPosition;
-    Colour[][] mapKnowledge;
+    HashMap<Position, Colour> mapKnowledge; //if position not mapped then the area is grey
 
 
-    public Player(Colour[][] map){
-        mapKnowledge = new Colour[map.length][map.length];
-
-        for(int i=0;i<map.length;i++){
-            for(int j=0;j<map.length;j++){
-                mapKnowledge[i][j]=Colour.GREY;
-            }
-        }
+    public Player(GameMap gameMap){
+        mapKnowledge = new HashMap<Position, Colour>();
 
         while(true) {
-            int I = (int) Math.floor(Math.random()*map.length);
-            int J = (int) Math.floor(Math.random()*map.length);
+            int I = (int) Math.floor(Math.random()*gameMap.size);
+            int J = (int) Math.floor(Math.random()*gameMap.size);
 
-            if(map[I][J]==Colour.GREEN){
-                mapKnowledge[I][J] = Colour.GREEN;
+            if(gameMap.tileColours[I][J]==Colour.GREEN){
                 position = new Position(I,J);
+                setTileKnowledge(position, gameMap);
                 initialPosition = new Position(position);
                 break;// randomly selects starting position
             }
@@ -34,7 +28,7 @@ public class Player {
     }
 
 
-    public boolean move(Direction direction, Map map)
+    public boolean move(Direction direction, GameMap gameMap)
     {
         Position previousPosition = new Position(position);
         switch(direction){
@@ -51,7 +45,7 @@ public class Player {
                 position.column++;
                 break;
         }
-        if(position.row>=map.size || position.column>=map.size) {
+        if(position.row>= gameMap.size || position.column>= gameMap.size) {
             position = previousPosition;
             return false;
         }
@@ -59,15 +53,29 @@ public class Player {
             position = previousPosition;
             return false;
         }
-        mapKnowledge[position.row][position.column] = map.tileColours[position.row][position.column];
+        setTileKnowledge(position, gameMap);
         return true;
     }
 
-    public void setPosition(Position position, Map map)
+    public void setPosition(Position position, GameMap gameMap)
     {
         this.position = position;
-        mapKnowledge[position.row][position.column] = map.tileColours[position.row][position.column];
+        setTileKnowledge(position, gameMap);
     }
 
+    public void setTileKnowledge(Position position, GameMap gameMap) {
+        mapKnowledge.put(new Position(position), gameMap.getTileType(position));
+    }
+    public void setTileKnowledge(Position position, Colour colour) {
+        mapKnowledge.put(new Position(position), colour);
+    }
 
+    public Colour getTileKnowledge(Position position) {
+        if (mapKnowledge.containsKey(position)) {
+            return mapKnowledge.get(position);
+        }
+        else {
+            return Colour.GREY;
+        }
+    }
 }
