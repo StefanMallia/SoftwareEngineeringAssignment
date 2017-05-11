@@ -11,8 +11,25 @@ public class Game
     //static int turn;
     static Player[] players;
     static GameMap gameMap;
+    static Team teams[];
 
 
+    public static void dividePlayers(){
+        int playersPerTeam = players.length/teams.length;
+        int numberOfPlayersleft = players.length;
+        int count;
+
+        for(int i=0;i<teams.length;i++){
+            count=1;
+            while(numberOfPlayersleft >0 && count<=playersPerTeam){
+                players[numberOfPlayersleft-1].team = teams[i];
+                teams[i].addPlayers(players[numberOfPlayersleft-1]);
+                count++;
+                numberOfPlayersleft--;
+            }
+        }
+
+    }
 
     public static boolean Winner(Player player) {
         if (gameMap.getTileType(player.position) == Colour.YELLOW)
@@ -103,6 +120,25 @@ public class Game
             generateHTMLFiles(players[i],i+1, ".");
 
         }
+
+        System.out.println("Team mode on or off ? (y/n)");
+        if(s.next() =="y"){
+            System.out.println("Enter number of teams (must divide evenly into number of players)");
+            int num_teams;
+
+            do{
+                num_teams = s.nextInt();
+            }while(num_teams>players.length || players.length % num_teams !=0);
+
+            teams = new Team[num_teams];
+
+            for(int i=0;i<num_teams;i++){
+                teams[i]= new Team();
+            }
+
+            dividePlayers();
+        }
+
 
         System.out.println("Valid Moves: up ^ ,down _ ,left < , right > \n" );
 

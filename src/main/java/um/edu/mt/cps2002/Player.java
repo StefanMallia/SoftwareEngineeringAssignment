@@ -5,6 +5,7 @@ import java.util.HashMap;
  * Created by stefan on 4/13/17.
  */
 public class Player {
+    Team team;
     Position position;
     Position initialPosition;
     HashMap<Position, Colour> mapKnowledge; //if position not mapped then the area is grey
@@ -12,6 +13,7 @@ public class Player {
 
     public Player(GameMap gameMap){
         mapKnowledge = new HashMap<Position, Colour>();
+        team = null; //default value, overwritten if team mode is on.
 
         while(true) {
             int I = (int) Math.floor(Math.random()*gameMap.size);
@@ -64,10 +66,26 @@ public class Player {
     }
 
     public void setTileKnowledge(Position position, GameMap gameMap) {
+        if(team!=null)
+            team.updateTeamTileKnowledge(position,gameMap);
+        else
+            mapKnowledge.put(new Position(position), gameMap.getTileType(position));
+    }
+    //Used solely by the Team class; using the normal setTileKnowledge method would create an infinite feedback loop
+    public void _setTileKnowledge(Position position, GameMap gameMap) {
         mapKnowledge.put(new Position(position), gameMap.getTileType(position));
     }
+
     public void setTileKnowledge(Position position, Colour colour) {
-        mapKnowledge.put(new Position(position), colour);
+        if(team!=null)
+            team.updateTeamTileKnowledge(position,colour);
+        else
+            mapKnowledge.put(new Position(position), colour);
+    }
+
+    public void _setTileKnowledge(Position position, Colour colour) {
+
+            mapKnowledge.put(new Position(position), colour);
     }
 
     public Colour getTileKnowledge(Position position) {
