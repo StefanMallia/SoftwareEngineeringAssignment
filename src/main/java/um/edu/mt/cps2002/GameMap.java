@@ -7,9 +7,7 @@ public class GameMap
     Colour[][] tileColours;
     public static GameMap instance = null;
 
-    private GameMap(){
-
-    }
+    public GameMap(){}
 
     public static GameMap getInstance() {
         if (instance == null) {
@@ -100,6 +98,21 @@ public class GameMap
         if(position.row>=size || position.column >= size)
             throw new IndexOutOfBoundsException();
         else return  tileColours[position.row][position.column];
+    }
+
+    public double mapProportion(){
+        double total = (double) size*size;
+        int bluecount=0;
+
+        for(int i=0;i<size;i++){
+            for(int j=0;j<size;j++){
+                if(tileColours[i][j]==Colour.BLUE)
+                    bluecount++;
+            }
+        }
+
+        return ((double) bluecount)/total;
+
     }
 
 }
