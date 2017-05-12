@@ -18,6 +18,7 @@ public class PlayerTest
         gameMap.generate();
         playerTest = new Player(gameMap);
 
+
     }
 
     @Test
