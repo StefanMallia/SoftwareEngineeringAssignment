@@ -5,11 +5,10 @@ package um.edu.mt.cps2002;
  */
 public class GameMapSafe extends GameMap {
 
-    GameMapSafe(){}
-    public static GameMapSafe getInstance() {
-        if (instance_num == 0) {
-            GameMapSafe instance = new GameMapSafe();
-            instance_num++;
+    private GameMapSafe(){}
+    public static GameMap getInstance() {
+        if (instance == null) {
+            instance = new GameMapSafe();
             return instance;
         }
         else {
@@ -20,7 +19,7 @@ public class GameMapSafe extends GameMap {
         Colour ret = Colour.BLUE;
         double mapProp = mapProportion();
 
-        if(mapProp<0.1 && Math.random()<=0.1)
+        if(mapProp<0.1 && Math.random()<0.1)
             ret = Colour.BLUE;
         else
             ret = Colour.GREEN;
@@ -31,21 +30,9 @@ public class GameMapSafe extends GameMap {
 
     }
 
-    public double mapProportion(){
-        double total = (double) size*size;
-        int bluecount=0;
 
-        for(int i=0;i<size;i++){
-            for(int j=0;j<size;j++){
-                if(tileColours[i][j]==Colour.BLUE)
-                    bluecount++;
-            }
-        }
 
-        return ((double) bluecount)/total;
-
-    }
-
+    @Override
     public void generate()
     {
         //int r;

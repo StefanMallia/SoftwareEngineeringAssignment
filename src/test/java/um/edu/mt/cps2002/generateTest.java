@@ -7,10 +7,11 @@ import org.junit.Test;
  * Created by tim on 11/05/2017.
  */
 public class generateTest {
-    GameMap gameMap;
     @Test
     public void SafeProportionTest(){
-        gameMap = new GameMapSafe();
+        GameMap.instance = null;
+        GameMapSafe.getInstance();
+        GameMap gameMap = GameMap.instance;
         gameMap.setMapSize(20,3);
         gameMap.generate();
         Assert.assertTrue(gameMap.mapProportion()<=0.1);
@@ -18,10 +19,11 @@ public class generateTest {
 
     @Test
     public void HazardousProportionTest(){
-        gameMap = new GameMapHazardous();
+        GameMap.instance = null;
+        GameMapHazardous.getInstance();
+        GameMap gameMap = GameMap.instance;
         gameMap.setMapSize(20,3);
         gameMap.generate();
         Assert.assertTrue(gameMap.mapProportion()<=0.35 && gameMap.mapProportion()>=0.25);
     }
-
 }

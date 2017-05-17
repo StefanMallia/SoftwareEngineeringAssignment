@@ -2,13 +2,11 @@ package um.edu.mt.cps2002;
 
 public abstract class GameMap
 {
+    public GameMap(){}
     int size;
     Position treasure;
     Colour[][] tileColours;
-    public static int instance_num = 0;
-
-    public GameMap(){}
-
+    public static GameMap instance = null;
 
     /*
     public GameMap(int size,int players) throws Exception{

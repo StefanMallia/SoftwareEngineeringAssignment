@@ -13,8 +13,8 @@ public class GameMapTest
     @Before
     public void setUp()
     {
-
-        gameMapTest = GameMapSafe.getInstance();
+        GameMapSafe.getInstance();
+        gameMapTest = GameMap.instance;
     }
 
     @Test
@@ -40,8 +40,7 @@ public class GameMapTest
     }
 
     @Test
-    public void testGenerate()
-    {
+    public void testGenerate() {
         gameMapTest.setMapSize(50, 5);
         gameMapTest.generate();
         int countTreasure = 0;
@@ -53,27 +52,6 @@ public class GameMapTest
         }
         Assert.assertEquals(1, countTreasure);
 
-        //make sure no neighboring water tiles are present
-        for (int i = 0; i < gameMapTest.size; i++) {
-            for (int j = 0; j < gameMapTest.size; j++) {
-                if (gameMapTest.tileColours[i][j] == Colour.BLUE) {
-                    boolean one_neighboring_blue = false;
-                    for (int n = i - 1; n <= i + 1; n++) {
-                        for (int m = j - 1; m <= j + 1; m++) {
-                            //skip when out of bounds index and when (n, m) == (i, j)
-                            if (n != -1 && n != gameMapTest.size && m != -1 && m != gameMapTest.size && !(n == i && m == j)) {
-                                if (gameMapTest.tileColours[n][m] == Colour.BLUE) {
-                                    one_neighboring_blue = true;
-                                }
-                            }
-                        }
-                    }
-                    Assert.assertFalse(one_neighboring_blue);
-
-                }
-            }
-
-        }
     }
 
     @Test

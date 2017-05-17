@@ -4,11 +4,10 @@ package um.edu.mt.cps2002;
  * Created by tim on 11/05/2017.
  */
 public class GameMapHazardous extends GameMap{
-
-    public static GameMapHazardous getInstance() {
-        if (instance_num == 0) {
-            GameMapHazardous instance = new GameMapHazardous();
-            instance_num++;
+    private GameMapHazardous(){}
+    public static GameMap getInstance() {
+        if (instance == null) {
+            instance = new GameMapHazardous();
             return instance;
         }
         else {
@@ -46,6 +45,7 @@ public class GameMapHazardous extends GameMap{
 
     }
 
+    @Override
     public void generate()
     {
         //int r;
@@ -103,6 +103,8 @@ public class GameMapHazardous extends GameMap{
         treasure = new Position(I,J);
 
     }
+
+
 
 }
 
