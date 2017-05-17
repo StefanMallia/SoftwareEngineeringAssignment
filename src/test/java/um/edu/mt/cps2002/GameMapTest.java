@@ -13,15 +13,15 @@ public class GameMapTest
     @Before
     public void setUp()
     {
-        GameMap.getInstance();
-        gameMapTest = GameMap.instance;
+
+        gameMapTest = GameMapSafe.getInstance();
     }
 
     @Test
     public void testGetInstance()
     {
         Assert.assertNotNull(gameMapTest);
-        GameMap gameMapTest2 = GameMap.getInstance();
+        GameMap gameMapTest2 = GameMapSafe.getInstance();
         Assert.assertNull(gameMapTest2);
     }
 

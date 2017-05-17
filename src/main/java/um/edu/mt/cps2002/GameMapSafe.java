@@ -6,7 +6,16 @@ package um.edu.mt.cps2002;
 public class GameMapSafe extends GameMap {
 
     GameMapSafe(){}
-
+    public static GameMapSafe getInstance() {
+        if (instance_num == 0) {
+            GameMapSafe instance = new GameMapSafe();
+            instance_num++;
+            return instance;
+        }
+        else {
+            return null;
+        }
+    }
     private Colour generateTile(){
         Colour ret = Colour.BLUE;
         double mapProp = mapProportion();

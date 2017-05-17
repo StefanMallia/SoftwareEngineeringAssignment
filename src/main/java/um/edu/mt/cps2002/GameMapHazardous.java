@@ -4,6 +4,17 @@ package um.edu.mt.cps2002;
  * Created by tim on 11/05/2017.
  */
 public class GameMapHazardous extends GameMap{
+
+    public static GameMapHazardous getInstance() {
+        if (instance_num == 0) {
+            GameMapHazardous instance = new GameMapHazardous();
+            instance_num++;
+            return instance;
+        }
+        else {
+            return null;
+        }
+    }
     private Colour generateTile(){
         Colour ret = Colour.BLUE;
         double mapProp = mapProportion();

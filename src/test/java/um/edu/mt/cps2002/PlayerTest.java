@@ -12,8 +12,8 @@ public class PlayerTest
 
     @Before
     public void setUp() {
-        GameMap.getInstance();
-        gameMap = GameMap.instance;
+
+        gameMap = GameMapSafe.getInstance();
         gameMap.setMapSize(6,3);
         gameMap.generate();
         playerTest = new Player(gameMap);

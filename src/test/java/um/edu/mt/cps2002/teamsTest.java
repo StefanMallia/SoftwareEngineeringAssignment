@@ -21,8 +21,8 @@ public class teamsTest {
 
     @Before
     public void setUp() {
-        GameMap.getInstance();
-        gameMap = GameMap.instance;
+
+        gameMap = GameMapSafe.getInstance();
         gameMap.setMapSize(8,4);
         gameMap.generate();
         Game.players = new Player[4];
