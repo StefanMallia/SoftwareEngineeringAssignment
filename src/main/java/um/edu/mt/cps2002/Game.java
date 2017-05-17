@@ -107,7 +107,19 @@ public class Game
             plrs = s.nextInt();
         }while (!setNumPlayers(plrs));
 
-        gameMap = GameMap.getInstance();
+        System.out.println("Enter 1 for Hazardous Map mode and 2 for Safe mode");
+
+        int m;
+
+        do{
+            m = s.nextInt();
+        }while(m!=1 && m!=2);
+
+        if(m==1)
+            gameMap = GameMapHazardous.getInstance();
+        else
+            gameMap = GameMapSafe.getInstance();
+
         do {
             System.out.println("Enter size of grid");
             size=s.nextInt();
@@ -122,7 +134,7 @@ public class Game
         }
 
         System.out.println("Team mode on or off ? (y/n)");
-        if(s.next() =="y"){
+        if(s.next().equals("y")){
             System.out.println("Enter number of teams (must divide evenly into number of players)");
             int num_teams;
 
